@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Glance PoC</title>
+    <link href="css/styles.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <script src="js/three.min.js"></script>
+    <script src="js/tween.min.js"></script>
+    <script src="js/CSS3DRenderer.js"></script>
+    <script src="js/glance.js"></script>
+
+    <div id="container"></div>
+
+    <script>
+      var data = [
+          {
+            "name": "Uptime",
+            "value": "2 days\n23 hours\n12 minutes\n11 seconds" ,
+            "status": health.healthy,
+            "column": 1
+          },
+          {
+            "name": "Mem",
+            "value": "500 MB free\n1 GB total",
+            "status": health.healthy,
+            "column": 1
+          },
+          {
+            "name": "CPU",
+            "value": "core0: 70%\ncore1: 10%",
+            "status": health.healhty,
+            "column": 1
+          },
+          {
+            "name": "Disk",
+            "value": "22 GB free\n32 GB total",
+            "status": health.healhty,
+            "column": 1
+          },
+          {
+            "name": "Users",
+            "value": "2 online" ,
+            "status": health.healthy,
+            "column": 2
+          },
+          {
+            "name": "Processes",
+            "value": "1 running\n162 sleeping\n0 stopped" ,
+            "status": health.healthy,
+            "column": 2
+          },
+          {
+            "name": "Date/time",
+            "value": "Fri Mar 6, 14:45" ,
+            "status": health.healthy,
+            "column": 2
+          },
+          {
+            "name": "IP address",
+            "value": "192.168.178.29" ,
+            "status": health.healthy,
+            "column": 2
+          },
+          {
+            "name": "Security packages",
+            "value": "Up to date" ,
+            "status": health.healthy,
+            "column": 3
+          },
+          {
+            "name": "Anti-virus DB",
+            "value": "Outdated" ,
+            "status": health.warnings,
+            "column": 3
+          },
+          {
+            "name": "Firewall",
+            "value": "Up\n42 rules" ,
+            "status": health.healthy,
+            "column": 3
+          },
+          {
+            "name": "Portsentry",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 3
+          },
+          {
+            "name": "Tripwire",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 3
+          },
+          {
+            "name": "Logcheck",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 3
+          },
+          {
+            "name": "SSH",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 4
+          },
+          {
+            "name": "Nginx",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 4
+          },
+          {
+            "name": "MySQL daemon",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 4
+          },
+          {
+            "name": "Redis daemon",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 4
+          },
+          {
+            "name": "Sphinx daemon",
+            "value": "Up" ,
+            "status": health.healthy,
+            "column": 4
+          },
+          //
+          {
+            "name": "GitHub issues",
+            "value": "7 new" ,
+            "status": health.warnings,
+            "column": 5
+          },
+          {
+            "name": "GitHub pull requests",
+            "value": "11 pending" ,
+            "status": health.warnings,
+            "column": 5
+          },
+          {
+            "name": "Travis CI Build status",
+            "value": "Passing" ,
+            "status": health.healthy,
+            "column": 5
+          },
+          {
+            "name": "Code Climate code analysis",
+            "value": "Grade" ,
+            "status": health.healthy,
+            "column": 5
+          },
+          {
+            "name": "Code Climate test coverage",
+            "value": "92%" ,
+            "status": health.healthy,
+            "column": 5
+          },
+          {
+            "name": "GitHub",
+            "value": "Online" ,
+            "status": health.healthy,
+            "column": 6
+          },
+          {
+            "name": "Google",
+            "value": "Online" ,
+            "status": health.healthy,
+            "column": 6
+          },
+          {
+            "name": "Stack Overflow",
+            "value": "Online" ,
+            "status": health.healthy,
+            "column": 6
+          },
+          {
+            "name": "Avg. request exec. time",
+            "value": "3ms" ,
+            "status": health.healthy,
+            "column": 7
+          },
+          {
+            "name": "Page views",
+            "value": "2000/day" ,
+            "status": health.healthy,
+            "column": 7
+          },
+          {
+            "name": "Error rate",
+            "value": "0/second" ,
+            "status": health.healthy,
+            "column": 7
+          },
+          {
+            "name": "Webmail",
+            "value": "Online" ,
+            "status": health.healthy,
+            "column": 8
+          },
+          {
+            "name": "Blog",
+            "value": "Offline" ,
+            "status": health.fatal,
+            "column": 8
+          },
+          {
+            "name": "#glitch users",
+            "value": "xopr, knon, epic, X3",
+            "status": health.healthy,
+            "column": 9
+          },
+          {
+            "name": "Glitch forum",
+            "value": "online" ,
+            "status": health.healthy,
+            "column": 9
+          },
+          {
+            "name": "Prolly DE",
+            "value": "online" ,
+            "status": health.healthy,
+            "column": 9
+          },
+          {
+            "name": "Mail",
+            "value": "2 unread" ,
+            "status": health.warnings,
+            "column": 10
+          },
+      ];
+
+      init(data);
+      animate();
+    </script>
+  </body>
+</html>
+
